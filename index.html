@@ -2,27 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My GitHub Pages Site</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-      background: #f0f0f0;
-    }
-    h1 {
-      color: #333;
-    }
-    a {
-      color: #0366d6;
-      text-decoration: none;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Otter Together Forever</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Welcome to My GitHub Pages Website!</h1>
-  <p>This is a simple page hosted on <code>github.io</code>.</p>
-  <p>View the source code on <a href="https://github.com/your-username/your-repo-name" target="_blank">GitHub</a>.</p>
+  <div class="container">
+    <h1>Happy Anniversary!</h1>
+    <p>You otter know how much</p>
+    <img src="assets/your-photo.jpg" alt="Us" class="photo" />
+    <button onclick="showMessage()">Click for a surprise</button>
+    <div id="message" class="hidden">
+      <p>From the moment we met, it's been otterly amazing.</p>
+      <p>Here's to many more years together 🦦💞</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
