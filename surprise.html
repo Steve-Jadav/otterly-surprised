@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+  <title>Surpriseeeee!</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      font-family: 'Caveat', cursive;
+    }
+
+    body {
+      background: #fa7575;
+      background: radial-gradient(circle,rgba(250, 117, 117, 1) 4%, rgba(233, 206, 148, 1) 85%);
+      color: white;
+    }
+
+    #fireworks-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 1;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .message:hover {
+      background: rgba(0, 0, 0, 0.10);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%) scale(1.01);
+    }
+
+    .message h1 {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        color: #000000;
+        font-weight: 50;
+      }
+
+    .message p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .message-box {
+        background: rgba(77, 77, 77, 0.1);
+        padding: 1rem 1.5rem;
+        margin-top: 1rem;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: white; /* or adjust to fit your theme */
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .ceo {
+        color: #000000;
+      }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks-canvas"></canvas>
+
+  <div class="message">
+    <h1>Happy Anniversary! 🦦✨</h1>
+    <div class="message-box">
+        <p>
+        We’ve made it through another wonderful year together.<br/>
+        This journey has been otterly perfect, and I can't wait for all the moments still to come.
+        I would ask you out all over again.
+        <br/>
+        You are my greatest adventure, my home. ❤️🥂🏡
+        </p>
+    </div>
+    <br>
+    <p> - To the <span class="ceo"> CEO of Making Me Smile Inc. </span> </p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('fireworks-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    const particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createFirework() {
+      const x = random(width * 0.1, width * 0.9);
+      const y = random(height * 0.1, height * 0.5);
+      const count = 50 + Math.floor(Math.random() * 50);
+      const hue = Math.floor(random(0, 360));
+
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count;
+        const speed = random(2, 6);
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          size: random(2, 4),
+          hue,
+        });
+      }
+    }
+
+    function updateParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05;
+        p.alpha -= 0.015;
+        if (p.alpha <= 0) particles.splice(i, 1);
+      }
+    }
+
+    function drawParticles() {
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 100%, 70%, ${p.alpha})`;
+        ctx.shadowColor = `hsla(${p.hue}, 100%, 70%, ${p.alpha})`;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height); // no fading, fully clears each frame
+      if (Math.random() < 0.08) createFirework();
+      updateParticles();
+      drawParticles();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
