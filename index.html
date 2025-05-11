@@ -3,20 +3,157 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome to Otterniversary!</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Welcome to May the 16th!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+      background: linear-gradient(to bottom right, #ECCEFF, #34495E);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 2.0rem;
+      font-weight: 150;
+    }
+    
+    .content {
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .start-btn {
+      background: #ffcccb;
+      color: #333;
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1.0rem;
+      transition: background 0.3s;
+    }
+    
+    .start-btn:hover {
+      background: #ffc1c1;
+    }
+
+    .bounce {
+      display: inline-block;
+      animation: bounce 1.2s infinite ease-in-out;
+      font-size: 1.8rem;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .daisy {
+      position: fixed;
+      pointer-events: none;
+      font-size: 28px;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+      animation: flyIn 2.2s ease-in-out forwards;
+      z-index: 9999;
+    }
+    
+    @keyframes flyIn {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--cx), var(--cy)) scale(1.2);
+        opacity: 1;
+      }
+    }
+    
+    .falling {
+      animation: fallDown 2.4s ease-in forwards;
+    }
+    
+    @keyframes fallDown {
+      0% {
+        transform: translate(var(--cx), var(--cy)) scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(var(--cx) + 0px), calc(var(--cy) + var(--dy))) scale(1);
+        opacity: 0;
+      }
+    }
+
+    .daisy {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+      animation: fall 0.6s ease-in forwards;
+    }
+    
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="ocean">
-    <div class="wave"></div>
-    <div class="wave wave2"></div>
+  <div class="content">
+    <h1>Welcome to Our Otterniversary Adenture! <span class="bounce">❣️</span> </h1>
+    <p>You're about to go on a fun little journey full of puzzles, memories, and surprises!</p>
+    <br> <br>
+    <a href="puzzle.html" class="start-btn" onclick="launchRoses(event)">Start the Adventure</a>
   </div>
 
-  <div class="content">
-    <img src="assets/images/otter.png" alt="Cute Otter" class="otter-img"/>
-    <h1>Welcome to Our Otterniversary Adventure! 🦦</h1>
-    <p>You're about to go on a fun little journey full of puzzles, memories, and surprises!</p>
-    <a href="surprise.html" class="start-btn">Start the Adventure</a>
-  </div>
+  <script>
+    function launchRoses(e) {
+      e.preventDefault();
+  
+      for (let i = 0; i < 50; i++) {
+        const flower = document.createElement('span');
+        flower.className = 'daisy';
+        flower.innerText = '🌼';
+  
+        const left = Math.random() * window.innerWidth;
+        const duration = Math.random() * 0.5 + 1.2; // 0.5–1.2 seconds
+        const delay = Math.random(); // staggered start
+        const size = Math.random() * 16 + 24; // 24px to 40px
+  
+        flower.style.left = `${left}px`;
+        flower.style.top = `-50px`;
+        flower.style.fontSize = `${size}px`;
+        flower.style.animation = `fall ${duration}s ease-in ${delay}s forwards`;
+  
+        document.body.appendChild(flower);
+        setTimeout(() => flower.remove(), (duration + delay) * 1000);
+      }
+  
+      setTimeout(() => {
+        window.location.href = "puzzle.html";
+      }, 1500);
+    }
+  </script>
 </body>
 </html>

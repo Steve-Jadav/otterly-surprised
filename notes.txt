@@ -1,0 +1,48 @@
+• Questions for puzzle.html:
+
+1. Memory lane: That one food item which was supposed to be split in half, but wasn't!
+
+2. This is a food item. It is healthy, and one of your favourites. BUT,
+it maybe one of my least favourite vegetables. 😂
+- Correct Answer: Cauliflower
+
+3. Careful: The correct answer to this riddle is a specific
+order of date ideas, that I think will make you the happiest. 
+Place the below date ideas in a descreasing order of preference.
+Sleeping does not count as a date. 😂
+Idea: Allow moveable pills, the question only changes when the correct
+order of pills is determined. Once a pill is placed at its correct position,
+it could also change to a green color to indicate progress!? And then, once the 
+right order is determined, we could trigger a confetti?
+- Zoo
+- Sunset + A long walk on the beach
+- Escape Room
+- Cooking together
+- Stargazing
+- Bowling
+
+4. About me: Asking you about my favourite fruit would be too simple. Let's see if you remember this? 😛
+Use one of these questions:
+- What did I dress as, during a childhood fancy-dress competition?
+
+5. Okay, noiceee! This is a fruit, that we both enjoy. Here are some characteristics:
+- It's sour.
+- Not very readily available at grocery stores.
+- A unique shape and size.
+
+After 1/2 incorrect answers, a hint could appear.
+Hint: It is green in color, but it's not grepes. (kamrak - star something - will need to look it up I think)
+
+6. Correct lyrics to this song: "Tera Hone Laga Hoon"
+- Shining in the shading sun... (correct answer)
+- Shining in the setting sun like a pearl upon the ocean...(incorrect)
+- One more incorrect lyrics but funny
+- Another incorrect, yet funny.
+
+7. Crossword puzzle? With some pre-selected words? Maybe 5-6?
+
+• Closing:
+Once, every question is solved, there could be a "Reveal Surprise" button that would take the user
+to the surprise.html page. From there, after a few seconds, a button should appear with the following text:
+"It's not over yet, click for the final surprise". Once clicked, it should redirect to a YouTube link to the
+following song: "Tera Hone Laga Hoon"... 😂

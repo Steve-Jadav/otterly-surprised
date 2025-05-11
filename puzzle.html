@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Puzzle Journey</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom right, #ECCEFF, #34495E);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .riddle {
+      display: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .riddle.active {
+      display: block;
+    }
+
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      background-color: #ff6b81;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-top: 2rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #e55060;
+    }
+
+    .error {
+      display: none;
+      color: #ffbaba;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .success {
+      color: #b2ffb2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Solve the puzzle and unlock the next level!</h1>
+
+    <div class="riddle active" id="riddle1">
+      <p><strong>Q1:</strong> Memory lane: That one food item which was supposed to be split in half, but wasn't! 🍰</p>
+      <input type="text" id="a1" placeholder="Your answer" />
+      <div class="error" id="err1">Nope! 
+        Try again 🧐</div>
+      <button onclick="checkAnswer(1)">Submit</button>
+    </div>
+
+    <div class="riddle" id="riddle2">
+      <p><strong>Q2:</strong> Careful: The correct answer to this riddle is a specific
+        order of date ideas, that "I" think will make you the happiest. These date ideas should be
+        placed in a descreasing order of preference. 🏖️</p>
+      <input type="text" id="a2" placeholder="Your answer" />
+      <div class="error" id="err2">Close, but not quite!</div>
+      <button onclick="checkAnswer(2)">Submit</button>
+    </div>
+
+    <div class="riddle" id="riddle3">
+      <p><strong>Q3:</strong> What you called me after I fell asleep mid-movie 🎬💤</p>
+      <input type="text" id="a3" placeholder="Your answer" />
+      <div class="error" id="err3">Try again, sleepyhead! 😄</div>
+      <button onclick="checkAnswer(3)">Unlock Surprise</button>
+    </div>
+
+    <div class="riddle" id="riddle4">
+        <p><strong>Q3:</strong> What you called me after I fell asleep mid-movie 🎬💤</p>
+        <input type="text" id="a3" placeholder="Your answer" />
+        <div class="error" id="err3">Try again, sleepyhead! 😄</div>
+        <button onclick="checkAnswer(3)">Unlock Surprise</button>
+    </div>
+
+    <div class="riddle" id="riddle5">
+        <p><strong>Q3:</strong> What you called me after I fell asleep mid-movie 🎬💤</p>
+        <input type="text" id="a3" placeholder="Your answer" />
+        <div class="error" id="err3">Try again, sleepyhead! 😄</div>
+        <button onclick="checkAnswer(3)">Unlock Surprise</button>
+    </div>
+  </div>
+
+  <script>
+    const answers = {
+      1: "kulcha",
+      2: "goa",
+      3: "sleepybear"
+    };
+
+    function checkAnswer(step) {
+      const input = document.getElementById(`a${step}`).value.trim().toLowerCase();
+      const error = document.getElementById(`err${step}`);
+      if (input === answers[step]) {
+        error.style.display = "none";
+
+        // Final step
+        if (step === 3) {
+          window.location.href = "surprise.html";
+          return;
+        }
+
+        // Move to next riddle
+        document.getElementById(`riddle${step}`).classList.remove("active");
+        document.getElementById(`riddle${step + 1}`).classList.add("active");
+      } else {
+        error.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
