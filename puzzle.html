@@ -130,11 +130,30 @@
         list-style: none;
         padding-left: 1em;
     }
+
+    .option {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .option:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      
+      .option.selected {
+        border: 2px solid #fff;
+        background-color:  #BEFFC1;
+        color: black;
+      }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Solve the puzzle and unlock the next level!</h1>
+    <h1>Solve the puzzle to unlock the surprise!</h1>
 
     <div class="riddle active" id="riddle1">
         <p><strong>Memory lane 🧠</strong> <br> <br> 
@@ -196,16 +215,17 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
     </div>
 
     <div class="riddle" id="riddle6">
-        <p><strong>Music choices</strong> <br> <br>
-             Choose the correct lyrics to this song:
-            <ul class="starfruit">
-                <li> - It's sour </li>
-                <li> - Not very readily available at grocery stores. </li>
-                <li> - A unique shape and size.</li>
-            </ul>
-        <input type="text" id="a6" placeholder="Your answer" />
-        <div class="error" id="err6">Hmm, not really.</div>
-        <button onclick="checkAnswer(6)">Submit</button>
+        <p><strong>Lyrics challenge 🎶</strong><br><br>
+          What are the correct lyrics to the song <em>“Tera Hone Laga Hoon”</em>?
+        </p>
+      
+        <div class="option" onclick="selectLyrics(this, 1)">Shining in the shading sun...</div>
+        <div class="option" onclick="selectLyrics(this, 2)">Shining in the setting sun like a pearl upon the ocean...</div>
+        <div class="option" onclick="selectLyrics(this, 3)">Shining in the sand and sun like crawler on the ocean...</div>
+        <div class="option" onclick="selectLyrics(this, 4)">Shining in the saddle like a pal upon the oven...</div>
+      
+        <div class="error" id="err6" style="display:none; margin-top:1rem; color:#ffbaba;"></div>
+        <button onclick="submitLyrics()">Submit</button>
     </div>
 
   <script>
@@ -222,7 +242,7 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
       
     const hints = {
         1: [
-          "Go back all the way upto 2018. 🕰️",
+          "Go back all the way upto 2019. 🕰️⛰️",
           "It’s a type of Indian flatbread. 😛",
           "You usually eat it with chole. 🙁",
           "It rhymes with 'fulcha'."
@@ -256,14 +276,8 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
             origin: { y: 0.6 }
           });
       
-          if (step === 5) {
-            window.location.href = "surprise.html";
-            return;
-          }
-      
           document.getElementById(`riddle${step}`).classList.remove("active");
           document.getElementById(`riddle${step + 1}`).classList.add("active");
-      
         } else {
           error.style.display = "block";
           attempts[step]++;
@@ -344,6 +358,38 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
       error.style.display = "block";
     }
   }
+
+  let selectedLyrics = null;
+
+function selectLyrics(el, value) {
+  document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedLyrics = value;
+}
+
+function submitLyrics() {
+  const error = document.getElementById("err6");
+  if (!selectedLyrics) {
+    error.textContent = "Please pick one!";
+    error.style.display = "block";
+    return;
+  }
+
+  if (selectedLyrics === 1) {
+    error.style.display = "none";
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+
+    document.getElementById("riddle6").classList.remove("active");
+    document.getElementById("riddle7").classList.add("active");
+  } else {
+    error.textContent = "Nooo 😂";
+    error.style.display = "block";
+  }
+}
   </script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
