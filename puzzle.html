@@ -89,10 +89,18 @@
         margin: 0.5rem auto;
     }
       
+    .sortable {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        margin: 2rem auto;
+    }
+
     .sortable li {
         background: #fff3;
         padding: 0.75rem 1rem;
-        margin: 0.5rem auto; /* ⬅️ This centers the pill */
+        margin: 0.5rem auto;
         border-radius: 20px;
         cursor: grab;
         transition: background 0.3s;
@@ -165,7 +173,7 @@
     </div>
 
     <div class="riddle" id="riddle2">
-        <p>Okay, great! 🎊 <strong>Now, careful: </strong>  <br> <br>
+        <p>Okay, great! 🎊 <strong>Now, careful: </strong>  <br>
         The correct answer to this riddle is a specific order of date ideas that <strong>I</strong> think will make you the happiest.  
         Place the below date ideas in a decreasing order of preference. "Sleeping" does not count as a date. 😂</p>
         <ul id="sortable" class="sortable">
