@@ -157,6 +157,47 @@
         background-color:  #BEFFC1;
         color: black;
       }
+    
+      .crossword-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 40px);
+        grid-gap: 4px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      
+      .crossword-grid div {
+        width: 40px;
+        height: 40px;
+        background: #fff2;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+      
+      .crossword-grid div.selected {
+        background: #ffc1c1;
+        color: #222;
+      }
+      
+      #word-list ul {
+        list-style: none;
+        padding-left: 0;
+        text-align: center;
+      }
+      
+      #word-list li.found {
+        text-decoration: line-through;
+        color: #b4f8c8;
+      }
+
   </style>
 </head>
 <body>
@@ -236,6 +277,25 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
         <button onclick="submitLyrics()">Submit</button>
     </div>
 
+    <div class="riddle" id="riddle7" style="display: none;">
+        <h2>Riddle 7: Crossword Time 🧩</h2>
+        <p>Find all the hidden words below! Click and drag across letters to form words.</p>
+        
+        <div id="crossword" class="crossword-grid"></div>
+      
+        <div id="word-list">
+          <strong>Words to Find:</strong>
+          <ul id="words-to-find">
+            <li data-word="LOVE">LOVE</li>
+            <li data-word="DATE">DATE</li>
+            <li data-word="OTTER">OTTER</li>
+          </ul>
+        </div>
+      
+        <br>
+        <button id="submit-crossword" class="start-btn" style="display: none;" onclick="goToSurprise()">Finish Adventure</button>
+    </div>
+
   <script>
     const answers = {
       1: "kulcha",
@@ -250,18 +310,18 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
       
     const hints = {
         1: [
-          "Go back all the way upto 2019. 🕰️⛰️",
-          "It’s a type of Indian flatbread. 😛",
-          "You usually eat it with chole. 🙁",
-          "It rhymes with 'fulcha'."
+          "Hint: Go back all the way upto 2019. 🕰️⛰️",
+          "Hint: It’s a type of Indian flatbread. 😛",
+          "Hint: You usually eat it with chole. 🙁",
+          "Hint: It rhymes with 'fulcha'."
         ],
         4: [
-          "A type of food.",
-          "How about a fruit?"
+          "Hint: A type of food.",
+          "Hint: How about a fruit?"
         ],
         5: [
-            "It's yellowish-green in color.",
-            "Think hard. It's known through its shape."
+            "Hint: It's yellowish-green in color.",
+            "Hint: Think hard. It's known through its shape."
         ],
     };
 
@@ -297,7 +357,7 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
         }
     }
     
-    const correctOrder = [
+  const correctOrder = [
         "Zoo",
         "Sunset + A long walk on the beach",
         "Escape Room",
@@ -398,6 +458,102 @@ function submitLyrics() {
     error.style.display = "block";
   }
 }
+
+  // Crossword Puzzle
+  const crosswordWords = ["LOVE", "DATE", "OTTER"];
+  const crosswordGrid = [
+    "L", "O", "V", "E", "X", "X", "X",
+    "X", "X", "X", "X", "X", "X", "X",
+    "X", "X", "O", "T", "T", "E", "R",
+    "X", "X", "X", "X", "X", "X", "X",
+    "D", "A", "T", "E", "X", "X", "X",
+    "X", "X", "X", "X", "X", "X", "X",
+    "X", "X", "X", "X", "X", "X", "X"
+  ];
+  
+  let selectedIndices = [];
+  let isDragging = false;
+  
+  function renderCrossword() {
+    const container = document.getElementById("crossword");
+    container.innerHTML = '';
+    crosswordGrid.forEach((letter, i) => {
+      const cell = document.createElement('div');
+      cell.textContent = letter;
+      cell.dataset.index = i;
+      cell.dataset.row = Math.floor(i / 7);
+      cell.dataset.col = i % 7;
+  
+      cell.addEventListener("mousedown", startDrag);
+      cell.addEventListener("mouseenter", dragOver);
+      cell.addEventListener("mouseup", endDrag);
+  
+      container.appendChild(cell);
+    });
+    document.addEventListener("mouseup", () => isDragging = false);
+  }
+  
+  function startDrag(e) {
+    isDragging = true;
+    selectedIndices = [];
+    const cell = e.target;
+    cell.classList.add("selected");
+    selectedIndices.push(+cell.dataset.index);
+  }
+  
+  function dragOver(e) {
+    if (!isDragging) return;
+    const cell = e.target;
+    const index = +cell.dataset.index;
+    if (!selectedIndices.includes(index)) {
+      cell.classList.add("selected");
+      selectedIndices.push(index);
+    }
+  }
+  
+  function endDrag() {
+    if (!selectedIndices.length) return;
+  
+    const selectedWord = selectedIndices.map(i => crosswordGrid[i]).join("");
+    const reversed = selectedWord.split('').reverse().join('');
+  
+    for (const word of crosswordWords) {
+      if (selectedWord === word || reversed === word) {
+        document.querySelector(`[data-word="${word}"]`).classList.add("found");
+        selectedIndices.forEach(i => {
+          const cell = document.querySelector(`[data-index="${i}"]`);
+          cell.classList.add("found");
+        });
+        break;
+      }
+    }
+  
+    selectedIndices.forEach(i => {
+      const cell = document.querySelector(`[data-index="${i}"]`);
+      cell.classList.remove("selected");
+    });
+  
+    selectedIndices = [];
+    checkCrosswordComplete();
+    isDragging = false;
+  }
+  
+  function checkCrosswordComplete() {
+    const allFound = [...document.querySelectorAll('#words-to-find li')]
+      .every(li => li.classList.contains("found"));
+    if (allFound) {
+      document.getElementById("submit-crossword").style.display = "inline-block";
+    }
+  }
+  
+  function goToSurprise() {
+    window.location.href = "surprise.html";
+  }
+  
+  function showRiddle7() {
+    document.getElementById("riddle7").style.display = "block";
+    renderCrossword();
+  }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
