@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
   <title>Surpriseeeee!</title>
   <style>
     html, body {
@@ -78,6 +80,38 @@
       .ceo {
         color: #000000;
       }
+
+      .button-section {
+        margin-top: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        animation: fadeIn 1.5s ease forwards;
+        opacity: 0;
+      }
+      
+      .yt-btn {
+        background-color: #ffffffcc; /* soft white with transparency */
+        color: #333;
+        padding: 0.7rem 1.4rem;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 400;   
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      .yt-btn:hover {
+        background-color: #f1f1f1;
+        color: #000;
+      }
+      
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
   </style>
 </head>
 <body>
@@ -98,6 +132,10 @@
     </div>
     <br>
     <p> - To the <span class="ceo"> CEO </span> of <span class="ceo"> Making Me Smile Inc. </span></p>
+
+    <div id="delayed-button" class="button-section" style="display: none;">
+      <a href="https://www.youtube.com/watch?v=rLR37BR88T0" target="_blank" class="yt-btn">The surprise isn't over yet!</a>
+    </div>
   </div>
 
   <script>
@@ -170,6 +208,12 @@
     }
 
     animate();
+  </script>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('delayed-button').style.display = 'block';
+    }, 5000); // 5 seconds
   </script>
 </body>
 </html>
