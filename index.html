@@ -53,13 +53,24 @@
       background: #ffc1c1;
     }
 
-    .bounce {
+    .bounce-heart {
       display: inline-block;
-      animation: bounce 1.2s infinite ease-in-out;
+      animation: bounce-heart 1.2s infinite ease-in-out;
       font-size: 1.8rem;
     }
     
-    @keyframes bounce {
+    @keyframes bounce-heart {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .bounce-pineapple {
+      display: inline-block;
+      animation: bounce-pineapple 1s infinite ease-in-out;
+      font-size: 2.0rem;
+    }
+    
+    @keyframes bounce-pineapple {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-12px); }
     }
@@ -121,7 +132,8 @@
 </head>
 <body>
   <div class="content">
-    <h1>Welcome to Our Otterniversary Adenture! <span class="bounce">❣️</span> </h1>
+    <h1>Aloha! <span class="bounce-pineapple">🍍</span> </h1>
+    <h1>Welcome to Our Otterniversary Adenture! <span class="bounce-heart">❣️</span> </h1>
     <p>You're about to go on a fun little journey full of puzzles, memories, and surprises!</p>
     <br> <br>
     <a href="puzzle.html" class="start-btn" onclick="launchRoses(event)">Start the Adventure</a>
