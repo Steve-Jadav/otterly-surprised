@@ -154,19 +154,19 @@
     
       .crossword-grid {
         display: grid;
-        grid-template-columns: repeat(7, 40px);
-        grid-gap: 4px;
+        grid-template-columns: repeat(9, 30px);
+        grid-gap: 2px;
         justify-content: center;
         margin-top: 20px;
       }
       
       .crossword-grid div {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         background: #fff2;
         color: #fff;
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: 1.0rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -174,24 +174,29 @@
         cursor: pointer;
         border-radius: 4px;
         transition: background 0.2s;
+        -webkit-user-select: none;
+        -ms-user-select: none;
       }
       
       .crossword-grid div.selected {
         background: #ffc1c1;
         color: #222;
-      }
-      
-      #word-list ul {
-        list-style: none;
-        padding-left: 0;
-        text-align: center;
-      }
-      
-      #word-list li.found {
-        text-decoration: line-through;
-        color: #b4f8c8;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
       }
 
+      .crossword-grid div.found {
+        background-color: #4CAF50;  /* green */
+        color: white;
+        user-select: none;
+        cursor: default;
+      }
+
+      #crossword div.found {
+        background-color: #4CAF50;
+        color: white;
+      }
   </style>
 </head>
 <body>
@@ -272,20 +277,11 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
     </div>
 
     <div class="riddle" id="riddle7" style="display: none;">
-        <h2>Riddle 7: Crossword Time 🧩</h2>
-        <p>Find all the hidden words below! Click and drag across letters to form words.</p>
+        <h3>Crossword Time 🧩</h3>
+        <p>There are 5 hidden words in this crossword. Find them all to unlock the surprise! Click and drag across letters to form words.</p>
         
         <div id="crossword" class="crossword-grid"></div>
-      
-        <div id="word-list">
-          <strong>Words to Find:</strong>
-          <ul id="words-to-find">
-            <li data-word="LOVE">LOVE</li>
-            <li data-word="DATE">DATE</li>
-            <li data-word="OTTER">OTTER</li>
-          </ul>
-        </div>
-      
+
         <br>
         <button id="submit-crossword" class="start-btn" style="display: none;" onclick="goToSurprise()">Finish Adventure</button>
     </div>
@@ -351,7 +347,7 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
         }
     }
     
-  const correctOrder = [
+    const correctOrder = [
         "Zoo",
         "Sunset + A long walk on the beach",
         "Escape Room",
@@ -360,10 +356,10 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
         "Bowling"
     ];
 
-  const list = document.getElementById("sortable");
-  let draggedItem = null;
+    const list = document.getElementById("sortable");
+    let draggedItem = null;
 
-  if (list) {
+    if (list) {
     list.addEventListener("dragstart", (e) => draggedItem = e.target);
 
     list.addEventListener("dragover", (e) => {
@@ -379,7 +375,7 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
     });
   }
 
-  function getDragAfterElement(container, y) {
+    function getDragAfterElement(container, y) {
     const els = [...container.querySelectorAll("li:not(.dragging)")];
     return els.reduce((closest, el) => {
       const box = el.getBoundingClientRect();
@@ -390,7 +386,7 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
     }, { offset: Number.NEGATIVE_INFINITY }).element;
   }
 
-  function checkOrder() {
+    function checkOrder() {
     const items = [...list.querySelectorAll("li")];
     let correct = 0;
 
@@ -421,15 +417,15 @@ Can you remember what I dressed up as for that one childhood fancy-dress competi
     }
   }
 
-  let selectedLyrics = null;
+    let selectedLyrics = null;
 
-function selectLyrics(el, value) {
+    function selectLyrics(el, value) {
   document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
   el.classList.add('selected');
   selectedLyrics = value;
 }
 
-function submitLyrics() {
+    function submitLyrics() {
   const error = document.getElementById("err6");
   if (!selectedLyrics) {
     error.textContent = "Please pick one!";
@@ -447,6 +443,7 @@ function submitLyrics() {
 
     document.getElementById("riddle6").classList.remove("active");
     document.getElementById("riddle7").classList.add("active");
+    showRiddle7();
   } else {
     error.textContent = "Nooo 😂";
     error.style.display = "block";
@@ -454,20 +451,35 @@ function submitLyrics() {
 }
 
   // Crossword Puzzle
-  const crosswordWords = ["LOVE", "DATE", "OTTER"];
+  const crosswordWords = ["LOVE", "DATE", "VICKY", "DACHSHUND", "WAIKIKI"];
   const crosswordGrid = [
-    "L", "O", "V", "E", "X", "X", "X",
-    "X", "X", "X", "X", "X", "X", "X",
-    "X", "X", "O", "T", "T", "E", "R",
-    "X", "X", "X", "X", "X", "X", "X",
-    "D", "A", "T", "E", "X", "X", "X",
-    "X", "X", "X", "X", "X", "X", "X",
-    "X", "X", "X", "X", "X", "X", "X"
+   "D", "G", "F", "L", "U", "L", "I", "I", "A",
+   "A", "N", "M", "O", "W", "X", "M", "T", "U",
+   "C", "T", "A", "V", "J", "D", "A", "T", "E",
+   "H", "B", "O", "E", "G", "E", "C", "G", "D",
+   "S", "S", "K", "W", "M", "K", "L", "D", "A",
+   "H", "A", "B", "T", "J", "U", "U", "P", "C",
+   "U", "W", "A", "I", "K", "I", "K", "I", "B",
+   "N", "R", "V", "I", "C", "K", "Y", "S", "P",
+   "D", "X", "O", "C", "N", "J", "J", "V", "M"
   ];
   
   let selectedIndices = [];
   let isDragging = false;
+  let dragDirection = null;
+  let foundWords = new Set();
   
+  function getDirection(start, end) {
+    const startRow = Math.floor(start / 9);
+    const startCol = start % 9;
+    const endRow = Math.floor(end / 9);
+    const endCol = end % 9;
+  
+    if (startRow === endRow) return 'HORIZONTAL';
+    if (startCol === endCol) return 'VERTICAL';
+    return 'DIAGONAL';
+  }
+
   function renderCrossword() {
     const container = document.getElementById("crossword");
     container.innerHTML = '';
@@ -475,8 +487,8 @@ function submitLyrics() {
       const cell = document.createElement('div');
       cell.textContent = letter;
       cell.dataset.index = i;
-      cell.dataset.row = Math.floor(i / 7);
-      cell.dataset.col = i % 7;
+      cell.dataset.row = Math.floor(i / 9);
+      cell.dataset.col = i % 9;
   
       cell.addEventListener("mousedown", startDrag);
       cell.addEventListener("mouseenter", dragOver);
@@ -488,17 +500,33 @@ function submitLyrics() {
   }
   
   function startDrag(e) {
+    e.preventDefault();
+
     isDragging = true;
     selectedIndices = [];
     const cell = e.target;
-    cell.classList.add("selected");
-    selectedIndices.push(+cell.dataset.index);
-  }
+    const index = +cell.dataset.index;
+    cell.classList.toggle("selected");
+    selectedIndices.push(index);
+  }  
   
   function dragOver(e) {
     if (!isDragging) return;
     const cell = e.target;
     const index = +cell.dataset.index;
+    const lastIndex = selectedIndices[0];
+  
+    // Enforce no diagonals
+    const direction = getDirection(lastIndex, index);
+    if (direction === 'DIAGONAL') return;
+  
+    // Only allow dragging in straight lines
+    if (!dragDirection) {
+      dragDirection = direction;
+    } else if (dragDirection !== direction) {
+      return;
+    }
+  
     if (!selectedIndices.includes(index)) {
       cell.classList.add("selected");
       selectedIndices.push(index);
@@ -511,32 +539,46 @@ function submitLyrics() {
     const selectedWord = selectedIndices.map(i => crosswordGrid[i]).join("");
     const reversed = selectedWord.split('').reverse().join('');
   
+    let found = false;
     for (const word of crosswordWords) {
-      if (selectedWord === word || reversed === word) {
-        document.querySelector(`[data-word="${word}"]`).classList.add("found");
+      if ((selectedWord === word || reversed === word) && !foundWords.has(word)) {
         selectedIndices.forEach(i => {
           const cell = document.querySelector(`[data-index="${i}"]`);
+          cell.classList.remove("selected");
           cell.classList.add("found");
         });
+        foundWords.add(word);
+        found = true;
         break;
       }
     }
   
-    selectedIndices.forEach(i => {
-      const cell = document.querySelector(`[data-index="${i}"]`);
-      cell.classList.remove("selected");
-    });
+    if (!found) {
+      selectedIndices.forEach(i => {
+        const cell = document.querySelector(`[data-index="${i}"]`);
+        cell.classList.toggle("selected");
+      });
+    }
   
     selectedIndices = [];
-    checkCrosswordComplete();
+    dragDirection = null;
     isDragging = false;
+  
+    if (found) {
+      checkCrosswordComplete();
+    }
   }
   
   function checkCrosswordComplete() {
-    const allFound = [...document.querySelectorAll('#words-to-find li')]
-      .every(li => li.classList.contains("found"));
-    if (allFound) {
-      document.getElementById("submit-crossword").style.display = "inline-block";
+    if (foundWords.size === crosswordWords.length) {
+        document.getElementById("submit-crossword").style.display = "inline-block";
+
+        // Trigger confetti
+        confetti({
+            particleCount: 500,
+            spread: 450,
+            origin: { y: 0.1 }
+        });
     }
   }
   
