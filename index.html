@@ -128,6 +128,55 @@
         opacity: 0;
       }
     }
+
+    #lock-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+    }
+  
+    #lock-message {
+      background: white;
+      color: #333;
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      font-size: 1rem;
+    }
+  
+    #lock-message button {
+      margin-top: 1.5rem;
+      background: #ff4d4d;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+    }
+  
+    body.locked {
+      overflow: hidden;
+      pointer-events: none;
+    }
+  
+    body.locked * {
+      filter: blur(4px);
+    }
+  
+    body.locked #lock-overlay,
+    body.locked #lock-overlay * {
+      pointer-events: auto;
+      filter: none;
+    }
   </style>
 </head>
 <body>
@@ -165,6 +214,30 @@
       setTimeout(() => {
         window.location.href = "puzzle.html";
       }, 1800);
+    }
+  </script>
+
+  <script>
+    const unlockTime = new Date("2025-05-16T00:00:00-04:00");
+    const now = new Date();
+  
+    if (now < unlockTime) {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("locked");
+  
+        const overlay = document.createElement("div");
+        overlay.id = "lock-overlay";
+  
+        overlay.innerHTML = `
+        <div id="lock-message">
+          <h2>Not yet :)</h2>
+          <p>This surprise will be available starting <strong>May 16 at 12:00 AM EST</strong>.</p>
+          <p>Please come back then to start a journey! ❤️</p>
+        </div>
+`;
+  
+        document.body.appendChild(overlay);
+      });
     }
   </script>
 </body>
